@@ -1,5 +1,9 @@
 # Ignore data folder
 data/
+chroma/
+
+# Ignore envronment variables and configuration files
+.env
 
 # Ignore compiled bytecode and other temporary files
 *.pyc

@@ -2,9 +2,13 @@ import pypdf
 import ollama
 import json
 import sqlite3
+from config import Config
 
-file = 'data/OI-NN-ST25JB_MPQ_ST25JW_YPQ_HPE_180628.pdf'
-model = 'mistral:7b-instruct-v0.3-q8_0'
+# Load configuration from the config.py file
+file = Config['pdf_file']
+model = Config['model']
+qa_db = Config['qa_db']
+
 qa_pair_template = """
 For the provided microwave oven instruction manual content, generate a JSON array with 20 question-answer pairs 
 without any formatting, comments, explanations, or prefixes.
@@ -36,7 +40,7 @@ def insert_qa_pair(cursor, page_num, qa_pair):
 
 def import_qa_pairs(pages):    
     """Import question-answer pairs from the specified pages of a PDF file into a SQLite database."""
-    conn = sqlite3.connect('data/qa.db')
+    conn = sqlite3.connect(qa_db)
     cursor = conn.cursor()      
     total_qa_pairs = 0
     for page_num, page_content in read_pdf(pages, file):
