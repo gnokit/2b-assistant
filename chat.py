@@ -17,7 +17,7 @@ If context section exists below, use it to answer the question.
 
 def get_sys_prompt(context=""):
     """Generate a system prompt for Ollama model."""
-    context_prompt = "" if context is None else "\n\nContext: " + context
+    context_prompt = "" if context is None else "\n\nContext:\n"+ context
     return sys_prompt_prefix + context_prompt
 
 
@@ -28,8 +28,9 @@ def generate_reply(chat_history: Dict) -> Iterable:
     # Get context for the query from source.
     context = query_to_context(query_text=query_text)
     # Inject context into system prompt.
-    chat_history[0] = {"role": "system", "content": get_sys_prompt(context=context)}
-    # Generate reply from Ollama model.
+    sys_prompt = get_sys_prompt(context=context)    
+    chat_history[0] = {"role": "system", "content": sys_prompt}
+    # Generate reply from Ollama model.    
     responses = ollama.chat(model, messages=chat_history, stream=True)
     for response in responses:
         yield response["message"]["content"]
