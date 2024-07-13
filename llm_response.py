@@ -30,7 +30,6 @@ def to_context(documents):
 if __name__ == "__main__":
     question = input("What's your question for your microwave oven ? ")
     documents = query(question)
-    context = to_context(documents)
-    #print(context)
+    context = to_context(documents)    
     response = llm_response(question, context)
     print(f"The answer to your question is:\n{response}")
