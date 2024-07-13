@@ -19,14 +19,14 @@ Answer:
 """
 
 
-def llm_qa_response(query_text, context):
+def rag_response(query_text, context):
     """Generate response using Ollama model by given context and query text"""
     prompt = prompt_template.format(context=context, question=query_text)
     ollm_response = ollama.generate(model=model, prompt=prompt)
     return ollm_response["response"].strip()
 
 
-def stream_qa_response(query_text, context):
+def stream_rag_response(query_text, context):
     """Generate stream of responses using Ollama model by given context and query text"""
     prompt = prompt_template.format(context=context, question=query_text)
     responses = ollama.generate(model=model, prompt=prompt, stream=True)
@@ -37,5 +37,5 @@ def stream_qa_response(query_text, context):
 if __name__ == "__main__":
     query_text = input("What's your question? ")
     context = query_to_context(query_text)
-    for chunk in stream_qa_response(query_text, context):
+    for chunk in stream_rag_response(query_text, context):
         print(chunk, end="", flush=True)
