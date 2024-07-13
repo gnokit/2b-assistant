@@ -10,14 +10,14 @@ Hi there! I'm the Microwave Witch 🧙‍♀️.
 I know all about your microwave oven. What question do you have for me? I'm here to help!
 """
 
+st.set_page_config(
+    page_title="Microwave Witch 🧙‍♀️",
+)
+st.title("Microwave Witch 🧙‍♀️")
 
-def generate_reply(chat_history: Dict) -> Iterable:
-    """Generate a reply to the user's query."""
-    # Get user's query from the last message in chat history.
-    query_text = chat_history[-1]["content"]
-    # Get context for the query from source.
-    context = query_to_context(query_text=query_text)
-    # Stream the RAG response from the model.
+
+def generate_reply(query_text, context) -> Iterable:
+    """Generate a reply to the user's query using RAG."""
     for chunk in stream_rag_response(query_text=query_text, context=context):
         yield chunk
 
@@ -27,9 +27,6 @@ def init_messages():
     return [
         {"role": "assistant", "content": welcome_message},
     ]
-
-
-st.title("Microwave Witch 🧙‍♀️")
 
 if "messages" not in st.session_state:
     # Initialize chat history with system prompt and welcome message.
@@ -47,6 +44,12 @@ if prompt := st.chat_input():
         st.markdown(prompt)
     # Generate reply from Ollama model and write to gui.
     with st.chat_message("assistant"):
-        response = st.write_stream(generate_reply(st.session_state.messages))
+        context = query_to_context(query_text=prompt)
+        with st.spinner("Casting...🪄"):
+            response = st.write_stream(generate_reply(prompt, context))
+            # Add context to the message if it's not empty. 📖
+            if len(context) > 0:
+                st.text("📝", help=context)
+
     # Add reply to chat history.
     st.session_state.messages.append({"role": "assistant", "content": response})
