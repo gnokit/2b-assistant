@@ -1,0 +1,9 @@
+# Local install Ollama model. This model will be used to execute all llm functions
+MODEL=mistral:7b-instruct-v0.3-q8_0
+# Location of your microwave oven instruction manaul
+PDF_FILE=data/manual.pdf
+# Location of your QA database (sqlite3) for the microwave oven instruction manaul. This is a sqlite file that contains all the questions and answers from the PDF file. The format is as follows:
+# You should manualy check the content is valid or not
+QA_DB=data/qa_pairs-v1.db
+# Cromadb collection name for storing QA pairs from PDF file. This will be used to store all questions and answers from the PDF file. The format is as follows:
+COLLECTION=qa_pairs
