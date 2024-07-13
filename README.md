@@ -1,24 +1,10 @@
 # Microwave Witch 🧙‍♀️
 
-The Microwave Witch is a conversational AI assistant developed using Ollama and a Vector DB (ChromaDB) to answer questions about microwave oven operation. The project aims to create a Retrieval Augmented Generation (RAG) application using the provided microwave oven instruction manual as the source of information.
-
-## Project Objectives
-
-1. Convert the microwave oven operation manual content into a question-answer (QA) format and store it in a SQLite3 database (see `generate_qa_pairs.py`).
-2. Process the QA records in the SQLite3 database to eliminate any useless or irrelevant information.
-3. Ingest the curated QA pairs into a Vector DB (ChromaDB) to enable efficient retrieval and generation (see `ingest_qa_pairs.py`).
-4. Develop a Streamlit-based user interface (UI) that allows users to interact with the Microwave Witch chatbot (see `chat.py`).
-
-## Features
-
-- Provides guidance on microwave usage, including cooking times, power levels, and techniques
-- Offers troubleshooting tips for common microwave issues
-- Suggests recipes and cooking methods for various food items
-- Answers questions about microwave features and functionality
+The Microwave Witch is a conversational AI assistant developed using Ollama and ChromaDB to answer questions about microwave oven operation. The project aims to create a Retrieval Augmented Generation (RAG) application using the provided microwave oven instruction manual as the source of information.
 
 ## Getting Started
 
-1. Ensure you have Python 3.x installed on your system.
+1. Ensure you have Python 3.11.x installed on your system.
 2. Clone the repository and navigate to the project directory.
 3. Create a virtual environment using `venv` or your preferred tool, e.g., `python -m venv env`.
 4. Activate the virtual environment:
@@ -26,10 +12,11 @@ The Microwave Witch is a conversational AI assistant developed using Ollama and 
    - On macOS/Linux: `source env/bin/activate`
 5. Install the required dependencies by running `pip install -r requirements.txt`.
 6. Rename the `env_example` file to `.env` and modify its contents according to your needs.
-7. Generate the QA pairs from the microwave oven manual by running `python generate_qa_pairs.py`.
-8. Ingest the QA pairs into the ChromaDB Vector DB by running `python ingest_qa_pairs.py`.
-9. Start the Streamlit-based Microwave Witch chatbot UI by running `streamlit run chat.py`.
-10. Interact with the Microwave Witch chatbot and ask your microwave-related questions.
+7. Modify `generate_qa_pairs.py` and generate the QA pairs from the microwave oven manual and store into sqlite database.
+8. Examine the inserted database QA pairs record and remove any irrelevant or incorrect QA pairs record.
+9. Ingest the QA pairs into the ChromaDB Vector DB by running `python ingest_qa_pairs.py`.
+10. Start the Streamlit-based Microwave Witch chatbot UI by running `streamlit run chat.py`.
+11. Interact with the Microwave Witch chatbot and ask your microwave-related questions.
 
 ## Contributing
 
