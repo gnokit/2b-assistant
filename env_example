@@ -7,3 +7,8 @@ PDF_FILE=data/manual.pdf
 QA_DB=data/qa_pairs-v1.db
 # Cromadb collection name for storing QA pairs from PDF file. This will be used to store all questions and answers from the PDF file. The format is as follows:
 COLLECTION=qa_pairs
+
+# top k results for search results from chromadb
+TOP_K=20
+# distance threshold for similarity search in chromadb. The lower the value, the more similar the results will be. The higher the value, the less similar the results will be. You should manualy check the content is valid or not
+MAX_DISTANCE=1.7
