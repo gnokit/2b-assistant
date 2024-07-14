@@ -20,6 +20,33 @@ Page content:
 JSON array:
 """
 
+import sqlite3
+
+import sqlite3
+
+
+def create_qa_table():
+    conn = sqlite3.connect(qa_db)
+    c = conn.cursor()
+
+    try:
+        c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS qa_pairs (
+                qa_id INTEGER, 
+                page_num INTEGER, 
+                question TEXT NOT NULL, 
+                answer TEXT NOT NULL, 
+                PRIMARY KEY(qa_id AUTOINCREMENT))
+            """
+        )
+        print("Table 'QA_pairs' has been created successfully.")
+    except sqlite3.Error as e:
+        print(f"An error occurred while creating table: {e}")
+
+    conn.close()
+
+
 def generate_qa_pairs(page_content):
     """Generate a JSON array with 20 question-answer pairs from the given page content."""
     prompt = qa_pair_template.format(page_content=page_content)
@@ -66,6 +93,7 @@ def import_qa_pairs(pages):
 
 
 if __name__ == "__main__":
+    create_qa_table();
     # import all english pages
     # import_qa_pairs([i for i in range(30)])
     # import failed pages only
