@@ -2,8 +2,8 @@
 
 The Microwave Witch is a conversational AI assistant developed using Ollama and ChromaDB to answer questions about microwave oven operation. The project aims to create a Retrieval Augmented Generation (RAG) application using the provided microwave oven instruction manual as the source of information.
 
-## Screen
-![screen1](images/demo.webm)
+## Demonstration
+[demo.webm](https://github.com/user-attachments/assets/2d15966b-5269-411e-aae5-372038bf1132)
 
 ## Getting Started
 
