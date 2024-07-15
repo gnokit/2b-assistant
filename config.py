@@ -5,7 +5,7 @@ import logging
 from chromadb.config import Settings
 
 # Load the environment variables from .env file
-load_dotenv()
+load_dotenv(override=True)
 
 # initial configuration for application
 Config = {
