@@ -5,7 +5,7 @@ from query_qa_pairs import query_to_context
 from llm_rag_response import stream_rag_response
 from expand_prompt import expand_prompt
 
-#print(f"Configuration: {Config}")
+# print(f"Configuration: {Config}")
 
 witch_avatar = "👧🏻"
 user_avatar = "😊"
@@ -63,10 +63,17 @@ if prompt := st.chat_input():
             context = query_to_context(query_text=expanded)
             # Generate response from Ollama model. 🤖
             response = st.write_stream(generate_reply(prompt, context))
-            # Add context to the message if it's not empty. 📖
-            #if len(context) > 0:
-            #    st.text("📝", help=context)
-            #st.text("💥", help=expanded)
+            # Write debugging information. 🔍
+            with st.expander("debug"):
+                st.write(
+                    f"""
+                Expanded: 
+                {expanded}   
+                                                     
+                Context:
+                {context}
+                """
+                )
 
     # Add reply to chat history.
     st.session_state.messages.append({"role": "assistant", "content": response})
