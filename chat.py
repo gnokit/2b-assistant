@@ -64,8 +64,9 @@ if prompt := st.chat_input():
             # Generate helpful, accurate, and user-friendly responses to customer inquiries
             response = st.write_stream(generate_reply(prompt, context))
             # Write debugging information. 🔍
-            with st.expander("debug"):
-                st.markdown(f"**Expanded:**\n\n{expanded}\n\n**Context:**\n\n{context}")
+            with st.sidebar:
+                st.title("DEBUG")
+                st.markdown(f"**Expanded:**\n\n{expanded}\n\n**Context:**\n\n{context}")            
 
     # Add reply to chat history.
     st.session_state.messages.append({"role": "assistant", "content": response})
