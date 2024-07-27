@@ -5,7 +5,6 @@ import sqlite3
 from config import Config
 
 # Load configuration from the config.py file
-file = Config["pdf_file"]
 model = Config["model"]
 qa_db = Config["qa_db"]
 
@@ -64,6 +63,7 @@ def create_qa_table():
                 page_num INTEGER, 
                 question TEXT NOT NULL, 
                 answer TEXT NOT NULL, 
+                manual TEXT NOT NULL,
                 PRIMARY KEY(qa_id AUTOINCREMENT))
             """
         )
@@ -90,15 +90,15 @@ def read_pdf(pages, pdf):
             yield page_num, pdf_page.extract_text().strip()
 
 
-def insert_qa_pair(cursor, page_num, qa_pair):
+def insert_qa_pair(cursor, page_num, qa_pair, manual):
     """Insert a question-answer pair into the database."""
     cursor.execute(
-        "INSERT INTO qa_pairs (page_num, question, answer) VALUES (?, ?, ?)",
-        (page_num, qa_pair["question"], qa_pair["answer"]),
+        "INSERT INTO qa_pairs (page_num, question, answer, manual) VALUES (?, ?, ?, ?)",
+        (page_num, qa_pair["question"], qa_pair["answer"], manual),
     )
 
 
-def import_qa_pairs(pages):
+def import_qa_pairs(pages, manual, file):
     """Import question-answer pairs from the specified pages of a PDF file into a SQLite database."""
     conn = sqlite3.connect(qa_db)
     cursor = conn.cursor()
@@ -109,7 +109,7 @@ def import_qa_pairs(pages):
             qa_pairs = json.loads(content)
             total_qa_pairs += len(qa_pairs)
             for qa_pair in qa_pairs:
-                insert_qa_pair(cursor, page_num, qa_pair)
+                insert_qa_pair(cursor, page_num, qa_pair, manual)
             conn.commit()
             print(
                 f"page: {page_num}, number of qa: {len(qa_pairs)}, total qa: {total_qa_pairs}"
@@ -120,8 +120,10 @@ def import_qa_pairs(pages):
 
 
 if __name__ == "__main__":
+    file = "data/WM_EHK_MFL72081842_00_230912_00_OM_WEB_EN.pdf"
+    manual = "washing-machine"
     create_qa_table()
     # import all english pages
-    import_qa_pairs([i for i in range(30)])
+    import_qa_pairs([i for i in range(41)], manual=manual, file=file)
     # import failed pages only
     #import_qa_pairs([13, 14, 27])
