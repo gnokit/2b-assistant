@@ -16,32 +16,34 @@ Instructions:
 5. If you're unsure about any aspect of the answer, acknowledge this and suggest the customer contact human support for more detailed information.
 6. Provide concise yet comprehensive answers, focusing on practical and actionable information.
 7. If appropriate, include safety warnings or best practices in your responses.
+8. Refer to the chat history to maintain consistency in your responses and to avoid repeating information already provided.
+9. If the current question relates to previous messages in the chat history, use that information to provide a more tailored and relevant response.
 
 Remember:
 - Prioritize user safety in all your responses.
 - If the question is outside your expertise or not related to microwave ovens, politely redirect the customer to the appropriate resource or support channel.
 - If a question requires technical repair advice beyond basic troubleshooting, advise the customer to seek professional service to ensure safety and proper handling.
 
-Please answer the following question based on these guidelines:
+Chat History:
+```
+{chat_history}
+```
+
+Current Question:
 {question}
 
 Context (if available):
+```
 {context}
+```
 
 Response:
 """
 
 
-def rag_response(query_text, context):
-    """Generate response using Ollama model by given context and query text"""
-    prompt = prompt_template.format(context=context, question=query_text)
-    ollm_response = ollama.generate(model=model, prompt=prompt)
-    return ollm_response["response"].strip()
-
-
-def stream_rag_response(query_text, context):
+def stream_rag_response(query_text, chat_history, context):
     """Generate stream of responses using Ollama model by given context and query text"""
-    prompt = prompt_template.format(context=context, question=query_text)
+    prompt = prompt_template.format(context=context, chat_history=chat_history, question=query_text)    
     responses = ollama.generate(model=model, prompt=prompt, stream=True)
     for response in responses:
         yield response["response"]
@@ -67,11 +69,11 @@ samples = [
 
 def to_chat_history(conversation):
     """Convert conversation to chat history"""
-    pass
-
+    return "\n".join(f"{chat['role']}: {chat['content']}" for chat in conversation)    
 
 if __name__ == "__main__":
     query_text = input("What's your question? ")
     context = query_to_context(query_text)
-    for chunk in stream_rag_response(query_text, context):
+    chat_history = to_chat_history(samples)
+    for chunk in stream_rag_response(query_text, chat_history, context):
         print(chunk, end="", flush=True)
