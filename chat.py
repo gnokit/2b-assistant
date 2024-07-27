@@ -57,11 +57,11 @@ if prompt := st.chat_input():
     # Generate reply from Ollama model and write to gui.
     with st.chat_message("assistant", avatar=witch_avatar):
         with st.spinner("Casting...🪄"):
-            # Expanded prompt is used for RAG.
+            # Expanded user queries into more specific, context-aware questions
             expanded = expand_prompt(st.session_state.messages)
-            # Generate reply using RAG. 📖
+            # Perform similary search of query_text and return the top_k documents as context
             context = query_to_context(query_text=expanded)
-            # Generate response from Ollama model. 🤖
+            # Generate helpful, accurate, and user-friendly responses to customer inquiries
             response = st.write_stream(generate_reply(prompt, context))
             # Write debugging information. 🔍
             with st.expander("debug"):
