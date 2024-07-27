@@ -11,16 +11,43 @@ qa_db = Config["qa_db"]
 
 # Prompt template for generating QA pairs from PDF pages
 qa_pair_template = """
-For the provided microwave oven instruction manual content, generate a JSON array with 20 question-answer pairs 
-without any formatting, comments, explanations, or prefixes.
+You are a professional Customer Service staff member.
+Your task is to convert technical manual content into clear, concise 30 question-answer pairs.
+The goal is to create a document that can be used effectively to respond to customer questions about the product.
+This content will be used to retrieve and generate relevant information based on user queries.
 
-Page content:
+**Instructions:**
+1. **Content Understanding:** Read and understand the provided page of the manual.
+2. **Conversion:** Create question-answer pairs based on the content. Each pair should consist of a potential customer question and its corresponding answer.
+3. **Clarity and Value:** Ensure each question is relevant to customers and each answer is informative, valuable, and maintains technical accuracy.
+4. **Formatting:** Present the question-answer pairs in JSON format only without prefix, comments, explanation, follow-up.
+5. **Customer Focus:** Prioritize information that addresses common customer queries and concerns.
+
+**Example Ouput:**
+[
+  {{
+    "question": "How do I turn on the device?",
+    "answer": "To turn on the device, press and hold the power button located on the top right corner for 3 seconds until the screen lights up."
+  }},
+  {{
+    "question": "What is the battery life of this product?",
+    "answer": "The battery life of this product is approximately 8 hours with normal usage. This can vary depending on the settings and applications used."
+  }},
+  {{
+    "question": "How do I connect the device to Wi-Fi?",
+    "answer": "To connect to Wi-Fi, go to Settings > Network > Wi-Fi, turn on Wi-Fi, select your network from the list, and enter the password when prompted."
+  }}
+  ...
+]
+
+
+Manual Content:
+```
 {page_content}
+```
 
-JSON array:
+question-answer pairs:
 """
-
-import sqlite3
 
 import sqlite3
 
@@ -93,8 +120,8 @@ def import_qa_pairs(pages):
 
 
 if __name__ == "__main__":
-    create_qa_table();
+    create_qa_table()
     # import all english pages
-    # import_qa_pairs([i for i in range(30)])
+    import_qa_pairs([i for i in range(30)])
     # import failed pages only
-    import_qa_pairs([13, 14, 27])
+    #import_qa_pairs([13, 14, 27])
