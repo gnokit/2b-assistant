@@ -28,11 +28,8 @@ def query_to_context(query_text):
     """Perform similary search of query_text and convert to QA pairs of Q and A"""
     documents = query(query_text=query_text)
     context = ""
-    for _, _, document in documents:
-        pairs = document.split("\n")
-        q = pairs[0]
-        a = "\n".join(pairs[1:])
-        context += f"Q: {q}\nA: {a}\n\n"
+    for _, _, document in documents:        
+        context += f"{document}\n"
     return context
 
 

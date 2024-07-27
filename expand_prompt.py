@@ -24,6 +24,7 @@ Please transform the user's input into a specific, detailed question that:
 2. Clarifies any ambiguous terms or references (like "it" or "this")
 3. Is formatted as a complete, grammatically correct question
 4. Maintains the original intent of the user's input
+5. Response transformed question only without prefix, explanation or comments
 
 Transformed question:
 """
