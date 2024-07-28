@@ -4,7 +4,7 @@ Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appli
 🏠✨ Got a question or need help troubleshooting? Just ask, and I'll do my best to assist you! What can I help you with today?
 
 ## Demonstration
-[demo.webm](https://github.com/user-attachments/assets/2d15966b-5269-411e-aae5-372038bf1132)
+[streamlit-chat-2024-07-28-09-07-90.webm](https://github.com/user-attachments/assets/13ebd738-21dc-4bc3-b3c8-94d6df046191)
 
 ## Getting Started
 
