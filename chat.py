@@ -16,9 +16,9 @@ Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appli
 """
 
 st.set_page_config(
-    page_title=f"HomeWise: Your Appliance Knowledge Hub 📚🔧",
+    page_title=f"Elara: Your Appliance Knowledge Hub 📚🔧",
 )
-st.title(f"HomeWise: Your Appliance Knowledge Hub 📚🔧")
+st.title(f"Elara: Your Appliance Knowledge Hub 📚🔧")
 st.image("images/microwave.png")
 
 

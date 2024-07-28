@@ -1,4 +1,4 @@
-# HomeWise: Your Appliance Knowledge Hub 📚🔧
+# Elara: Your Appliance Knowledge Hub 📚🔧
 
 Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appliances.
 🏠✨ Got a question or need help troubleshooting? Just ask, and I'll do my best to assist you! What can I help you with today?
