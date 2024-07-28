@@ -1,6 +1,7 @@
-# Microwave Witch 🧙‍♀️
+# HomeWise: Your Appliance Knowledge Hub 📚🔧
 
-The Microwave Witch is a conversational AI assistant developed using Ollama and ChromaDB to answer questions about microwave oven operation. The project aims to create a Retrieval Augmented Generation (RAG) application using the provided microwave oven instruction manual as the source of information.
+Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appliances.
+🏠✨ Got a question or need help troubleshooting? Just ask, and I'll do my best to assist you! What can I help you with today?
 
 ## Demonstration
 [demo.webm](https://github.com/user-attachments/assets/2d15966b-5269-411e-aae5-372038bf1132)
