@@ -15,6 +15,7 @@ Config = {
     "collection": os.getenv("COLLECTION"),
     "top_k": int(os.getenv("TOP_K")),
     "max_distance": float(os.getenv("MAX_DISTANCE")),
+    "appliances": os.getenv("APPLIANCES")
 }
 
 # initialize ChromaDB client for persistent storage of data. This is a local database

@@ -12,3 +12,6 @@ COLLECTION=qa_pairs-llama3
 TOP_K=20
 # distance threshold for similarity search in chromadb. The lower the value, the more similar the results will be. The higher the value, the less similar the results will be. You should manualy check the content is valid or not
 MAX_DISTANCE=1.7
+
+# ingested appliances
+APPLIANCES=WASHING_MACHINE,MICROWAVE_OVEN

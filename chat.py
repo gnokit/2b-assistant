@@ -4,21 +4,21 @@ from config import Config
 from query_qa_pairs import query_to_context
 from llm_rag_response import stream_rag_response, to_chat_history
 from expand_prompt import expand_prompt
-
+from talking_appliance import select_appliance
 # print(f"Configuration: {Config}")
 
 witch_avatar = "👧🏻"
 user_avatar = "😊"
 model = Config["model"]
 welcome_message = f"""
-Hi there! I'm the Microwave Witch {witch_avatar}. 
-I know all about your microwave oven. What question do you have for me? I'm here to help!
+Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appliances.
+🏠✨ Got a question or need help troubleshooting? Just ask, and I'll do my best to assist you! What can I help you with today?
 """
 
 st.set_page_config(
-    page_title=f"Microwave Witch {witch_avatar}",
+    page_title=f"HomeWise: Your Appliance Knowledge Hub 📚🔧",
 )
-st.title(f"Microwave Witch {witch_avatar}")
+st.title(f"HomeWise: Your Appliance Knowledge Hub 📚🔧")
 st.image("images/microwave.png")
 
 
@@ -59,18 +59,20 @@ if prompt := st.chat_input():
     # Generate reply from Ollama model and write to gui.
     with st.chat_message("assistant", avatar=witch_avatar):
         with st.spinner("Casting...🪄"):
+            # Use chat history to assist the response
+            chat_history = to_chat_history(st.session_state.messages)            
             # Expanded user queries into more specific, context-aware questions
             expanded = expand_prompt(st.session_state.messages)
+            # select talking appliance from chat history
+            appliance = select_appliance(prompt, chat_history=chat_history)            
             # Perform similary search of query_text and return the top_k documents as context
-            context = query_to_context(query_text=expanded)
-            # Use chat history to assist the response
-            chat_history = to_chat_history(st.session_state.messages)
+            context = query_to_context(appliance, query_text=expanded) if appliance != "unknown" else "N/A"
             # Generate helpful, accurate, and user-friendly responses to customer inquiries
             response = st.write_stream(generate_reply(prompt, chat_history, context))
             # Write debugging information. 🔍
             with st.sidebar:
                 st.title("DEBUG")
-                st.markdown(f"**Expanded:**\n\n{expanded}\n\n**Context:**\n\n{context}")
+                st.markdown(f"**Appliance:**\n\n{appliance}\n\n**Expanded:**\n\n{expanded}\n\n**Context:**\n\n{context}")
 
     # Add reply to chat history.
     st.session_state.messages.append({"role": "assistant", "content": response})
