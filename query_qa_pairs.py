@@ -1,13 +1,13 @@
-from config import chroma_client, Config, create_logger
+from config import chroma_client, config, create_logger
 import logging
 
 logger = create_logger("query_qa_pairs")  # Create a logger for this module
 
 # Connect to the Chroma database and get the collection
-collection = chroma_client.get_collection(name=Config["collection"])
+collection = chroma_client.get_collection(name=config.QA_COLL)
 
-top_k = Config["top_k"]
-max_distance = Config["max_distance"]
+top_k = config.TOP_K
+max_distance = config.MAX_DIST
 
 
 def query(manual, query_text):
@@ -41,6 +41,6 @@ def query_to_context(manual, query_text):
 if __name__ == "__main__":
     logger.setLevel(logging.DEBUG)
     query_text = input("Enter your question: ")
-    #context = query_to_context("microwave-oven", query_text)
-    context = query_to_context("washing-machine", query_text)
+    #context = query_to_context("microwave oven", query_text)
+    context = query_to_context("washing machine", query_text)
     print(context)

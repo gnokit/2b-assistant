@@ -1,9 +1,9 @@
 import ollama
-from config import Config
+from config import config
 from llm_rag_response import to_chat_history
 
-model = Config["model"]
-appliances = "\n".join(f"- {app}" for app in Config["appliances"].split(","))
+model = config.MODEL
+appliances = ",".join(app for app in config.APPLICANTS)
 
 appliance_selection_prompt = """
 You are an AI assistant tasked with determining which household appliance is being discussed in a conversation.
@@ -16,10 +16,10 @@ Instructions:
 4. If no specific appliance is explicitly mentioned, use context clues to infer which appliance is most likely being discussed.
 5. If it's impossible to determine a specific appliance or if the conversation is about an appliance not listed below, respond with "UNKNOWN".
 
-Currently supported appliances:
+Currently supported appliances delimited by comma character:
 {appliances}
 
-Your response should be exactly one word from the list above or "UNKNOWN".
+Your response should be exactly appliance from the list above or "unknown".
 
 Chat History:
 {chat_history}
@@ -27,7 +27,7 @@ Chat History:
 Current Question:
 {question}
 
-Determine the appliance being discussed and respond with only one word:
+Determine the appliance being discussed and respond the appliance only:
 """
 
 samples = [

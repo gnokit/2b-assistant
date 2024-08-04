@@ -1,6 +1,6 @@
 import streamlit as st
 from typing import Iterable
-from config import Config
+from config import config
 from query_qa_pairs import query_to_context
 from llm_rag_response import stream_rag_response, to_chat_history
 from expand_prompt import expand_prompt
@@ -9,7 +9,7 @@ from talking_appliance import select_appliance
 
 witch_avatar = "👧🏻"
 user_avatar = "😊"
-model = Config["model"]
+model = config.MODEL
 welcome_message = f"""
 Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appliances.
 🏠✨ Got a question or need help troubleshooting? Just ask, and I'll do my best to assist you! What can I help you with today?

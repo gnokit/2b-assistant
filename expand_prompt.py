@@ -1,10 +1,10 @@
 import ollama
 import logging
-from config import Config, create_logger
+from config import config, create_logger
 
 logger = create_logger("expand_prompt")
 
-model = Config["model"]
+model = config.MODEL
 
 prompt_template = """
 You are an AI assistant designed to expand user queries into more specific, context-aware questions.

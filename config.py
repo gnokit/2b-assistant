@@ -1,35 +1,43 @@
-from dotenv import load_dotenv
-import os
 import chromadb
 import logging
 from chromadb.config import Settings
 
-# Load the environment variables from .env file
-load_dotenv(override=True)
 
-# initial configuration for application
-Config = {
-    "model": os.getenv("MODEL"),
-    "qa_db": os.getenv("QA_DB"),    
-    "pdf_file": os.getenv("PDF_FILE"),
-    "collection": os.getenv("COLLECTION"),
-    "top_k": int(os.getenv("TOP_K")),
-    "max_distance": float(os.getenv("MAX_DISTANCE")),
-    "appliances": os.getenv("APPLIANCES")
-}
+class Config:
+    def __init__(self):
+        # Local ollama model to execute all llm request
+        self.MODEL: str = "gemma2:2b"
+        # Local ollama model for moderation.
+        self.GUARD_MODEL: str = "rongfengliang/shieldgemma:2b"
+        # Chromadb to store ALL documents
+        self.QA_COLL: str = "qa_pairs"
+        # Location of your QA database (sqlite3) for QA records and other records
+        self.QA_DB: str = "data/2b_assistant.db"
+        # Top K documents will be retrieved
+        self.TOP_K: int = 20
+        # Max. distance of documents wil be filtered out
+        self.MAX_DIST: float = 1.7
+        # Installed appliances list
+        self.APPLICANTS: list = ["washing machine", "microwave oven"]
+
+
+config = Config()
 
 # initialize ChromaDB client for persistent storage of data. This is a local database
 chroma_client = chromadb.PersistentClient(
     settings=Settings(anonymized_telemetry=False, allow_reset=True)
 )
 
-def create_logger(name):    
+
+def create_logger(name):
     # Create a logger instance
     logger = logging.getLogger(name)
     # Create a console handler and set its stream to sys.stdout (which is the default)
     handler = logging.StreamHandler()
     # Create a formatter and specify the format of the log messages
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
     # Set the formatter for the console handler
     handler.setFormatter(formatter)
     # Add the console handler to the logger

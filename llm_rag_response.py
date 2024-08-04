@@ -1,8 +1,8 @@
 import ollama
-from config import Config
+from config import config
 from query_qa_pairs import query_to_context
 
-model = Config["model"]
+model = config.MODEL
 
 prompt_template = """
 You are Elara, a personalized AI assistant for the user's household appliances.
@@ -81,7 +81,7 @@ def to_chat_history(conversation):
 
 if __name__ == "__main__":
     query_text = input("What's your question? ")
-    context = query_to_context(query_text)
+    context = query_to_context("microwave oven", query_text)
     chat_history = to_chat_history(samples)
     for chunk in stream_rag_response(query_text, chat_history, context):
         print(chunk, end="", flush=True)

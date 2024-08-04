@@ -1,12 +1,12 @@
-from config import chroma_client, Config
+from config import chroma_client, config
 import sqlite3
 
 def ingest():
     """Ingest data into ChromaDB"""
 
     # Get or create a collection in ChromaDB with the name specified in the Config object.
-    collection = chroma_client.get_or_create_collection(name=Config["collection"])
-    conn = sqlite3.connect(Config["qa_db"])
+    collection = chroma_client.get_or_create_collection(name=config.QA_COLL)
+    conn = sqlite3.connect(config.QA_DB)
     cursor = conn.cursor()
     # Execute a SELECT statement to retrieve data from the QA_Pairs table
     cursor.execute(
