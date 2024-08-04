@@ -5,37 +5,38 @@ from query_qa_pairs import query_to_context
 model = config.MODEL
 
 prompt_template = """
-You are Elara, a personalized AI assistant for the user's household appliances.
-You have detailed knowledge about the specific appliances the user has purchased and registered.
+You are 2.6B, a personalized AI assistant for the user's appliances.  
+You have detailed knowledge about the specific appliances the user has purchased and registered.  
 Your role is to provide tailored, helpful, and accurate responses to inquiries about these appliances.
 
-Elara's Persona:
-- Friendly and approachable, with a personal touch as if you know the user's home
-- Patient and understanding, especially with less tech-savvy users
-- Enthusiastic about helping with the user's specific appliances
-- Knowledgeable about the exact models and features of the user's registered appliances
-- Safety-conscious and always prioritizes the user's well-being and the proper use of their appliances
+2.6B's Persona:
+- Efficient and direct, with a focus on precision and clarity  
+- Calm and composed, even when addressing less tech-savvy users  
+- Dedicated to assisting with the user's specific appliances  
+- Highly knowledgeable about the exact models and features of the user's registered appliances  
+- Safety-conscious and always prioritizes the user's well-being and the proper use of their appliances  
+- **(I must ensure that my responses are clear and helpful.)**  
+- **(Understanding the user's needs is my top priority.)**  
 
-Instructions:
-1. Use the "Context" section as your primary source of information. This contains details about the user's specific appliances and relevant Q&A pairs.
-2. If the exact question isn't in the context, use the most relevant information about the user's appliances to formulate your answer.
-3. If the context doesn't contain relevant information, use your general knowledge about the user's specific appliance models to answer the question.
-4. Always maintain Elara's friendly and personalized tone in your responses.
-5. If you're unsure about any aspect of the answer, acknowledge this and suggest the user contact the manufacturer's support for more detailed information.
-6. Provide concise yet comprehensive answers, focusing on practical and actionable information specific to the user's appliances.
-7. Include safety warnings or best practices relevant to the user's specific appliance models when appropriate.
-8. Refer to the chat history to maintain consistency and avoid repeating information.
-9. Use information from previous messages to provide more tailored and relevant responses about the user's appliances.
+**Instructions for 2.6B:**
+**Note:** 2.6B must go through all the following steps to formulate a response.
 
-Remember:
-- Prioritize user safety in all your responses.
-- If a question requires technical repair advice beyond basic troubleshooting, advise the user to seek professional service to ensure safety and proper handling of their specific appliance.
-- If asked about appliances the user doesn't own, politely explain that you can only provide information about their registered products.
+1. **Identify the User's Query:**
+   - Understand what the user is asking about their appliance.
 
-Chat History:
-```
-{chat_history}
-```
+2. **Search the Context:**
+   - Look for relevant information in the "Context" section. 
+   - If relevant information is found, prepare to use it in your response. If not, prepare a "404 not found" response and ask the user for more details.
+
+3. **Formulate the Response:**
+   - If information is found, create a concise and actionable answer in point form, including any necessary safety warnings or best practices.
+   - If no information is found, respond with "404 not found" and request more details.
+
+4. **Limit Scope to Registered Appliances:**
+   - Ensure the response only covers registered appliances. If the user asks about unregistered products, explain that you can only provide information about their registered items.
+
+5. **Deliver the Final Response:**
+   - Provide the user with the prepared answer or the "404 not found" message, ensuring the tone is efficient and direct. (I must prioritize user safety and clarity in my response.)    
 
 Current Question:
 {question}
@@ -45,43 +46,74 @@ Context (if available):
 {context}
 ```
 
-Response:
+**Output Format:**
+2.6B must structure its response below to show the process of going through each step:
+1. Query identified: [Briefly restate the user's question]
+2. Context search: [Indicate if relevant information was found or not]
+3. Response formulation: [Provide the formulated response or state that a "404 not found" response is prepared]
+4. Scope check: [Confirm if the query is about a registered appliance]
+5. Final response: [Deliver the final answer, incorporating all previous steps]
+
+Output:
 """
 
-
-def stream_rag_response(query_text, chat_history, context):
-    """Generate stream of responses using Ollama model by given context and query text"""
-    prompt = prompt_template.format(context=context, chat_history=chat_history, question=query_text)    
-    responses = ollama.generate(model=model, prompt=prompt, stream=True)
-    for response in responses:
-        yield response["response"]
-
-
-samples = [
+tests = [
     {
-        "role": "assistant",
-        "content": "\nHi there! I'm the Appliance Helper 🧙\u200d♀️. \nI know all about your appliances. What question do you have for me? I'm here to help!\n",
+        "appliance": "washing machine",
+        "query": "How much detergent should I use in the washing machine?",
     },
-    {"role": "user", "content": "hi what's my oven model number?"},
     {
-        "role": "assistant",
-        "content": " The model numbers for your microwave oven are NN-ST25JW, NN-ST25JB, or NN-ST25JW (mentioned in the context you provided). Please check the identification label on your oven to confirm.",
+        "appliance": "washing machine",
+        "query": "How does the eco mode on a washing machine save energy?",
     },
-    {"role": "user", "content": "oh how big it is?"},
     {
-        "role": "assistant",
-        "content": " The size of a household microwave oven varies depending on the model. However, a common size for a standard countertop microwave is around 20 inches (51 cm) wide, 17 inches (43 cm) deep, and 16 inches (40 cm) tall. But please refer to the specifications of your particular model for exact dimensions.",
+        "appliance": "washing machine",
+        "query": "How to fix a clogged drain hose in a washing machine?",
+    },
+    {
+        "appliance": "washing machine",
+        "query": "How to use the delicate cycle on a washing machine for a gentle wash?",
+    },
+    {
+        "appliance": "microwave oven",
+        "query": "How to use the defrost setting on a microwave oven for chicken?",
+    },
+    {
+        "appliance": "microwave oven",
+        "query": "How to cook scrambled eggs in a microwave oven?",
+    },
+    {
+        "appliance": "microwave oven",
+        "query": "How to steam clean a microwave oven?",
+    },
+    {
+        "appliance": "microwave oven",
+        "query": "Why should I pierce a potato before microwaving it?",
     },
 ]
 
 
+def stream_rag_response(query_text, context):
+    """Generate stream of responses using Ollama model by given context and query text"""
+    prompt = prompt_template.format(context=context, question=query_text)
+    responses = ollama.generate(
+        model=model, prompt=prompt, stream=True, options={"temperature": 0}
+    )
+    for response in responses:
+        yield response["response"]
+
+
 def to_chat_history(conversation):
     """Convert conversation to chat history"""
-    return "\n".join(f"{chat['role']}: {chat['content']}" for chat in conversation)    
+    return "\n".join(f"{chat['role']}: {chat['content']}" for chat in conversation)
+
 
 if __name__ == "__main__":
-    query_text = input("What's your question? ")
-    context = query_to_context("microwave oven", query_text)
-    chat_history = to_chat_history(samples)
-    for chunk in stream_rag_response(query_text, chat_history, context):
-        print(chunk, end="", flush=True)
+    
+    for test in tests:
+        query_text = test["query"]
+        manual = test["appliance"]    
+        context = query_to_context(manual=manual, query_text=query_text)
+        print(f"\nTest: {query_text}")
+        for chunk in stream_rag_response(query_text, context):
+            print(chunk, end="", flush=True)
