@@ -14,9 +14,9 @@ class Config:
         # Location of your QA database (sqlite3) for QA records and other records
         self.QA_DB: str = "data/2b_assistant.db"
         # Top K documents will be retrieved
-        self.TOP_K: int = 20
+        self.TOP_K: int = 5
         # Max. distance of documents wil be filtered out
-        self.MAX_DIST: float = 1.7
+        self.MAX_DIST: float = 1.0
         # Installed appliances list
         self.APPLICANTS: list = ["washing machine", "microwave oven"]
         self.WELCOME_MESSAGE = """Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appliances.
