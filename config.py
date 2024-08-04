@@ -19,6 +19,8 @@ class Config:
         self.MAX_DIST: float = 1.7
         # Installed appliances list
         self.APPLICANTS: list = ["washing machine", "microwave oven"]
+        self.WELCOME_MESSAGE = """Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appliances.
+🏠✨ Got a question or need help troubleshooting? Just ask, and I'll do my best to assist you! What can I help you with today?"""
 
 
 config = Config()

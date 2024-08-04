@@ -10,10 +10,7 @@ from talking_appliance import select_appliance
 witch_avatar = "👧🏻"
 user_avatar = "😊"
 model = config.MODEL
-welcome_message = f"""
-Hi there! 😊 I'm Elara, your go-to AI assistant for all things household appliances.
-🏠✨ Got a question or need help troubleshooting? Just ask, and I'll do my best to assist you! What can I help you with today?
-"""
+welcome_message = config.WELCOME_MESSAGE
 
 st.set_page_config(
     page_title=f"Elara: Your Appliance Knowledge Hub 📚🔧",
