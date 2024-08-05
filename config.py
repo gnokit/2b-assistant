@@ -33,6 +33,7 @@ chroma_client = chromadb.PersistentClient(
 
 
 def create_logger(name):
+    """This function creates and configures a logger with console logging."""
     # Create a logger instance
     logger = logging.getLogger(name)
     # Create a console handler and set its stream to sys.stdout (which is the default)
