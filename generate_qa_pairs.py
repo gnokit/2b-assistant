@@ -22,6 +22,7 @@ This content will be used to retrieve and generate relevant information based on
 3. **Clarity and Value:** Ensure each question is relevant to customers and each answer is informative, valuable, and maintains technical accuracy.
 4. **Formatting:** Present the question-answer pairs in JSON format only without code block delimiter, prefix, comments, explanation, follow-up.
 5. **Customer Focus:** Prioritize information that addresses common customer queries and concerns, specifically focusing on the {manual} appliance.
+6. **Double Quotes:** Ensure that all double quotes within the strings are properly escaped with a backslash (\).
 
 **Example Ouput:**
 [
@@ -147,3 +148,12 @@ if __name__ == "__main__":
     #         manual="microwave oven",
     #         file="data/OI-NN-ST25JB_MPQ_ST25JW_YPQ_HPE_180628.pdf",
     #     )
+
+    #pages = [i for i in range(1, 17)]
+    pages = [10]
+    while len(pages) > 0:
+        pages = import_qa_pairs(
+            pages,
+            manual="coffee maker",
+            file="data/eng_delonghi_manu_ec685.pdf",
+        )
