@@ -6,8 +6,9 @@ If you have questions or need assistance, simply ask. I’m here to help you nav
 
 ![gnokit_close-up_illustration_of_a_cute_NieRs_2B_wearing_a_black_2f91b37c-6df4-4717-b5c0-0f949b408671 (1)](https://github.com/user-attachments/assets/ef640da3-5cc9-4f9b-8bb2-a191dadaa921)
 
-## Getting Started
+[streamlit-chat-2024-08-05-22-08-55.webm](https://github.com/user-attachments/assets/db9b691c-ae43-4e42-b293-1e47e6abdbf5)
 
+## Getting Started
 0. The app use Gemma2-2B LLM powered by ollama, so pull the model first.
 1. Ensure you have Python 3.11.x installed on your system.
 2. Clone the repository and navigate to the project directory.
@@ -22,7 +23,7 @@ If you have questions or need assistance, simply ask. I’m here to help you nav
 9. Examine the inserted database QA pairs record and remove any irrelevant or incorrect QA pairs record.
 10. Ingest the QA pairs into the ChromaDB Vector DB by running `python ingest_qa_pairs.py`.
 11. Start the Streamlit-based 2.6B chatbot UI by running `streamlit run chat.py`.
-12. Interact with the 2.6B chatbot and ask your microwave-related questions.
+12. Interact with the 2.6B chatbot and ask your appliances related questions.
 
 ## Contributing
 
