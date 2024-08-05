@@ -6,7 +6,7 @@ from chromadb.config import Settings
 class Config:
     def __init__(self):
         # Local ollama model to execute all llm request
-        self.MODEL: str = "gemma2:2b"
+        self.MODEL: str = "gemma2:2b-instruct-q8_0"
         # Local ollama model for moderation.
         self.GUARD_MODEL: str = "rongfengliang/shieldgemma:2b"
         # Chromadb to store ALL documents

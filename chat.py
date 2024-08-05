@@ -61,7 +61,7 @@ if prompt := st.chat_input():
             expanded = expand_prompt(st.session_state.messages)
             # select talking appliance from chat history
             appliance = select_appliance(prompt, chat_history=chat_history)
-            
+            # Prevent llm only returns one word
             for app in config.APPLICANTS:
                 if app in appliance:
                     appliance = app
