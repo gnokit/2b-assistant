@@ -20,7 +20,7 @@ class Config:
         # The temperature of the model
         self.TEMPERATURE: float = 0.0
         # Installed appliances list
-        self.APPLICANTS: list = ["washing machine", "microwave oven"]
+        self.APPLICANTS: list = ["washing machine", "microwave oven", "coffee maker"]
         self.WELCOME_MESSAGE = """Hello. I’m 2.6B, your AI assistant for all your appliance needs.
 If you have questions or need assistance, simply ask. I’m here to help you navigate any challenges you may face.
 (I must ensure optimal performance and efficiency.)"""

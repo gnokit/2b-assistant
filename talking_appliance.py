@@ -17,6 +17,7 @@ Instructions:
 5. For queries that don't explicitly mention an appliance, consider common tasks associated with each appliance:
     Washing machine: cleaning clothes, removing stains, wash cycles, detergents, fabric care
     Microwave oven: heating food, defrosting, cooking times, food preparation, reheating
+    Coffee Maker: brewing coffee, grinding beans, adjusting strength, programming timer, keeping coffee hot
 6. If it's impossible to determine a specific appliance or if the conversation is about an appliance not listed above, respond with "unknown".
 
 Currently supported appliances delimited by comma character:
