@@ -18,12 +18,11 @@ If you have questions or need assistance, simply ask. I’m here to help you nav
    - On macOS/Linux: `source env/bin/activate`
 5. Install the required dependencies by running `pip install -r requirements.txt`.
 6. Configure `Config` class in `config.py`.
-7. Rename the `env_example` file to `.env` and modify its contents according to your needs.
-8. Modify `generate_qa_pairs.py` and generate the QA pairs from the microwave oven manual and store into sqlite database.
-9. Examine the inserted database QA pairs record and remove any irrelevant or incorrect QA pairs record.
-10. Ingest the QA pairs into the ChromaDB Vector DB by running `python ingest_qa_pairs.py`.
-11. Start the Streamlit-based 2.6B chatbot UI by running `streamlit run chat.py`.
-12. Interact with the 2.6B chatbot and ask your appliances related questions.
+7. Modify `generate_qa_pairs.py` and add your appliances' manuals to generate QA pairs for each appliance.
+8. Examine the inserted database QA pairs record and remove any irrelevant or incorrect QA pairs record.
+9. Ingest the QA pairs into the ChromaDB Vector DB by running `ingest_qa_pairs.py`.
+10. Start the Streamlit-based 2.6B chatbot UI by running `streamlit run chat.py`.
+11. Interact with the 2.6B chatbot and ask your appliances related questions.
 
 ## Contributing
 
