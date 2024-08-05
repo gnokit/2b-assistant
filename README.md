@@ -23,7 +23,7 @@ If you have questions or need assistance, simply ask. I’m here to help you nav
 9. Examine the inserted database QA pairs record and remove any irrelevant or incorrect QA pairs record.
 10. Ingest the QA pairs into the ChromaDB Vector DB by running `python ingest_qa_pairs.py`.
 11. Start the Streamlit-based 2.6B chatbot UI by running `streamlit run chat.py`.
-12. Interact with the 2.6B chatbot and ask your microwave-related questions.
+12. Interact with the 2.6B chatbot and ask your appliances related questions.
 
 ## Contributing
 
