@@ -4,7 +4,7 @@ Hello. I’m 2.6B, your AI assistant for all your appliance needs.
 If you have questions or need assistance, simply ask. I’m here to help you navigate any challenges you may face.
 (I must ensure optimal performance and efficiency.)
 
-## Demonstration
+![gnokit_close-up_illustration_of_a_cute_NieRs_2B_wearing_a_black_2f91b37c-6df4-4717-b5c0-0f949b408671 (1)](https://github.com/user-attachments/assets/ef640da3-5cc9-4f9b-8bb2-a191dadaa921)
 
 ## Getting Started
 
