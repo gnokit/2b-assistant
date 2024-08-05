@@ -6,8 +6,6 @@ from llm_rag_response import stream_rag_response, to_chat_history
 from expand_prompt import expand_prompt
 from talking_appliance import select_appliance
 
-# print(f"Configuration: {Config}")
-
 witch_avatar = "👧🏻"
 user_avatar = "😊"
 model = config.MODEL
@@ -21,23 +19,24 @@ st.image("images/26-b.png")
 
 
 def generate_reply(query_text, context) -> Iterable:
-    """Generate a reply to the user's query using RAG."""
+    """Generates a reply to the user's query using RAG.""" 
     for chunk in stream_rag_response(query_text=query_text, context=context):
         yield chunk
 
 
 def init_messages():
-    """Initialize chat history with system prompt and welcome message."""
+    """Initialize chat history with welcome message."""
     return [
         {"role": "assistant", "content": welcome_message},
     ]
 
 
 if "messages" not in st.session_state:
-    # Initialize chat history with system prompt and welcome message.
+    # Initialize chat history with welcome message.
     st.session_state.messages = init_messages()
 
 for message in st.session_state.messages:
+    # Display each message in the chat history.
     with st.chat_message(
         message["role"],
         avatar=user_avatar if message["role"] == "user" else witch_avatar,
@@ -66,7 +65,7 @@ if prompt := st.chat_input():
                 if app in appliance:
                     appliance = app
                     break
-            
+
             # Perform similary search of query_text and return the top_k documents as context
             context = (
                 query_to_context(appliance, query_text=expanded)

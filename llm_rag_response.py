@@ -92,7 +92,10 @@ def stream_rag_response(query_text, context):
     """Generate stream of responses using Ollama model by given context and query text"""
     prompt = prompt_template.format(context=context, question=query_text)
     responses = ollama.generate(
-        model=model, prompt=prompt, stream=True, options={"temperature": 0}
+        model=model,
+        prompt=prompt,
+        stream=True,
+        options={"temperature": config.TEMPERATURE},
     )
     for response in responses:
         yield response["response"]
@@ -104,10 +107,10 @@ def to_chat_history(conversation):
 
 
 if __name__ == "__main__":
-    
+
     for test in tests:
         query_text = test["query"]
-        manual = test["appliance"]    
+        manual = test["appliance"]
         context = query_to_context(manual=manual, query_text=query_text)
         print(f"\nTest: {query_text}")
         for chunk in stream_rag_response(query_text, context):

@@ -3,6 +3,7 @@ import logging
 from sentence_transformers import SentenceTransformer, util
 from config import config, create_logger
 import numpy as np
+
 logger = create_logger("expand_prompt")
 
 model = config.MODEL
@@ -41,10 +42,13 @@ def to_context(chat_history):
 
 
 def expand_prompt(chat_history, limit=5):
+    """ expand the user's input into a more specific question """
     user_input = chat_history[-1]["content"]
     context = to_context(chat_history[-limit:-1])
-    prompt = prompt_template.format(context=context, user_input=user_input)    
-    response = ollama.generate(model, prompt)
+    prompt = prompt_template.format(context=context, user_input=user_input)
+    response = ollama.generate(
+        model, prompt, options={"temperature": config.TEMPERATURE}
+    )
     return response["response"].strip()
 
 
@@ -205,19 +209,20 @@ tests = [
 ]
 
 
-
 if __name__ == "__main__":
-    logger.setLevel(logging.DEBUG)    
-    st = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+    logger.setLevel(logging.DEBUG)
+    st = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
     distances = []
     for test in tests:
         messages = test["messages"]
         query = test["messages"][-1]["content"]
         expanded = test["expanded"]
         result = expand_prompt(chat_history=messages)
-        embedding_1= st.encode(expanded, convert_to_tensor=True)
+        embedding_1 = st.encode(expanded, convert_to_tensor=True)
         embedding_2 = st.encode(result, convert_to_tensor=True)
         distance = util.pytorch_cos_sim(embedding_1, embedding_2)[0][0]
         distances.append(distance)
-        print(f"Query:{query}\nExpected:{expanded}\nResult:{result}\nDistance:{distance}")
+        print(
+            f"Query:{query}\nExpected:{expanded}\nResult:{result}\nDistance:{distance}"
+        )
     print(f"Average Result: {np.array(distances).mean()}")

@@ -76,9 +76,11 @@ def create_qa_table():
 
 
 def generate_qa_pairs(page_content, manual):
-    """Generate a JSON array with 20 question-answer pairs from the given page content."""
+    """Generate a JSON array with question-answer pairs from the given page content."""
     prompt = qa_pair_template.format(page_content=page_content, manual=manual)
-    response = ollama.generate(model=model, prompt=prompt)
+    response = ollama.generate(
+        model=model, prompt=prompt, options={"temperature": config.TEMPERATURE}
+    )
     return response["response"]
 
 
@@ -104,6 +106,7 @@ def import_qa_pairs(pages, manual, file):
     conn = sqlite3.connect(qa_db)
     cursor = conn.cursor()
     total_qa_pairs = 0
+    failed_pages = []
     for page_num, page_content in read_pdf(pages, file):
         try:
             content = generate_qa_pairs(page_content, manual)
@@ -119,7 +122,9 @@ def import_qa_pairs(pages, manual, file):
             )
         except Exception as e:
             print(f"page: {page_num}, error: {str(e)}, content:\n{content}")
+            failed_pages.append(page_num)
     conn.close()
+    return failed_pages
 
 
 if __name__ == "__main__":
@@ -129,8 +134,16 @@ if __name__ == "__main__":
     #     manual="microwave oven",
     #     file="data/OI-NN-ST25JB_MPQ_ST25JW_YPQ_HPE_180628.pdf",
     # )
-    import_qa_pairs(
-        [33,39], #[i for i in range(44)],
-        manual="washing machine",
-        file="data/MFL70203955-EN.pdf",
-    )
+    # import_qa_pairs(
+    #     [33, 39],  # [i for i in range(44)],
+    #     manual="washing machine",
+    #     file="data/MFL70203955-EN.pdf",
+    # )
+
+    # pages = [i for i in range(1, 30)]
+    # while len(pages) > 0:
+    #     pages = import_qa_pairs(
+    #         pages,
+    #         manual="microwave oven",
+    #         file="data/OI-NN-ST25JB_MPQ_ST25JW_YPQ_HPE_180628.pdf",
+    #     )

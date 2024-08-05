@@ -146,10 +146,13 @@ tests = [
 
 
 def select_appliance(question, chat_history):
+    """Select the appropriate appliance based on the user's question and chat history."""
     prompt = appliance_selection_prompt.format(
         question=question, chat_history=chat_history, appliances=appliances
     )
-    response = ollama.generate(model=model, prompt=prompt)
+    response = ollama.generate(
+        model=model, prompt=prompt, options={"temperature": config.TEMPERATURE}
+    )
     return response["response"].strip().lower()
 
 

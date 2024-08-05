@@ -17,6 +17,8 @@ class Config:
         self.TOP_K: int = 5
         # Max. distance of documents wil be filtered out
         self.MAX_DIST: float = 1.0
+        # The temperature of the model
+        self.TEMPERATURE: float = 0.0
         # Installed appliances list
         self.APPLICANTS: list = ["washing machine", "microwave oven"]
         self.WELCOME_MESSAGE = """Hello. I’m 2.6B, your AI assistant for all your appliance needs.
