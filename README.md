@@ -9,9 +9,8 @@ If you have questions or need assistance, simply ask. I’m here to help you nav
 [streamlit-chat-2024-08-05-22-08-55.webm](https://github.com/user-attachments/assets/db9b691c-ae43-4e42-b293-1e47e6abdbf5)
 
 ## Getting Started
-0. The app use Gemma2-2B LLM powered by ollama, so pull the model first.
-1. Ensure you have Python 3.11.x installed on your system.
-2. Clone the repository and navigate to the project directory.
+1. The app use Gemma2-2B LLM powered by ollama, so pull the model first.
+2. Clone the repository
 3. Create a virtual environment using `venv` or your preferred tool, e.g., `python -m venv env`.
 4. Activate the virtual environment:
    - On Windows: `env\Scripts\activate`
@@ -21,8 +20,9 @@ If you have questions or need assistance, simply ask. I’m here to help you nav
 7. Modify `generate_qa_pairs.py` and add your appliances' manuals to generate QA pairs for each appliance.
 8. Examine the inserted database QA pairs record and remove any irrelevant or incorrect QA pairs record.
 9. Ingest the QA pairs into the ChromaDB Vector DB by running `ingest_qa_pairs.py`.
-10. Start the Streamlit-based 2.6B chatbot UI by running `streamlit run chat.py`.
-11. Interact with the 2.6B chatbot and ask your appliances related questions.
+10. Modify `Config` class in `config.py` to add the appliance
+11. Start the Streamlit-based 2.6B chatbot UI by running `streamlit run chat.py`.
+12. Interact with the 2.6B chatbot and ask your appliances related questions.
 
 ## Contributing
 
