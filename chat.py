@@ -62,7 +62,7 @@ if prompt := st.chat_input():
             appliance = select_appliance(prompt, chat_history=chat_history)
             # Prevent llm only returns one word
             for app in config.APPLICANTS:
-                if app in appliance:
+                if appliance in app:
                     appliance = app
                     break
 
