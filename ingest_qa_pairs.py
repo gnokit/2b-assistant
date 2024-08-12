@@ -21,7 +21,7 @@ def ingest():
         # Unpack the row into variables for easier access
         qa_id, page_num, question, answer, manual = row
         ids = [f"qa_id_{qa_id}"]
-        documents = [f"Question: {question}\nAnswer: {answer}\n"]
+        documents = [answer]
         metadatas = [{"page_num": page_num, "qa_id": qa_id, "manual": manual}]
         collection.add(ids=ids, documents=documents, metadatas=metadatas)
 
