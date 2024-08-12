@@ -36,7 +36,7 @@ def query_to_context(manual, query_text):
     )
     context = ""
     for _, _, document in documents:
-        context += f"{document}\n"
+        context += f"{document}\n\n"
     return context
 
 
