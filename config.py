@@ -11,8 +11,10 @@ class Config:
         self.GUARD_MODEL: str = "rongfengliang/shieldgemma:2b"
         # Chromadb to store ALL documents
         self.QA_COLL: str = "qa_pairs"
+        self.KNOWLEDGE_COL: str = "knowledges"
         # Location of your QA database (sqlite3) for QA records and other records
         self.QA_DB: str = "data/2b_assistant.db"
+        self.KNOWLEDGE_DB: str = "data/knowledges.db"
         # Top K documents will be retrieved
         self.TOP_K: int = 5
         # Max. distance of documents wil be filtered out
